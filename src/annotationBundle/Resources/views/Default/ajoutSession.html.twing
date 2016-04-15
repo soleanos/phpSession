@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'annotationBundle:form:fields.html.twig' %}
+{% block title %} Gestion des  sessions {% endblock %}
+{% block body %}
+
+    {{ form(form) }}
+
+    <h1>Les sessions </h1>
+
+        {% for session in liste %}
+
+            Nom du cours : <b>{{ session.intitule}} </b> </br>
+            débute   : {{ session.dateDebut|date("m/d/Y")}} </br>
+            se termine   : {{ session.dateFin|date("m/d/Y")}} </br>
+            est dispensée par {{ session.enseignant ? session.enseignant.nom|upper ~ "  " ~session.enseignant.prenom|capitalize :' un inconnu' }}
+
+
+            {% if session.etudiants|length != 0 %}
+                <h3>Les  étudiants qui participent :</h3>
+
+                 <ul>
+                    {% for etu in session.etudiants %}
+                         <li>{{ etu.nom|upper }} {{ etu.prenom|capitalize}}</li>
+                     {% endfor %}
+                 </ul>
+
+
+            {% endif %}
+
+            <hr style="width:100%;" />
+
+        {% endfor %}
+
+
+{% endblock %}

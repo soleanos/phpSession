@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %} Gestion des personnes {% endblock %}
+{% block body %}
+
+    {{ form(form) }}
+
+    <h1>Ma liste de personne</h1>
+    <ul>
+        {% for personne in liste|sort %}
+            <li>{{ personne.nom|upper }} {{ personne.prenom|capitalize}}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

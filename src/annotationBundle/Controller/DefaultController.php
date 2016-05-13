@@ -107,7 +107,7 @@ class DefaultController extends Controller
 
     // MON API ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //PERSONNES
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PERSONNES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //GET ALL
 
@@ -312,7 +312,7 @@ class DefaultController extends Controller
     // GET ONE
 
     /**
-     * @Route("/api/session/{id}",name = "api_session")
+     * @Route("/api/session/{id}",name = "get session ")
      * @Method("GET")
      */
 
@@ -341,6 +341,30 @@ class DefaultController extends Controller
 
     }
 
+    //DELETE ONE
 
+    /**
+     * @Route("/api/session/{id}",name = "delete_session")
+     * @Method("DELETE")
+     */
+
+    public function deleteSession(Request $request,$id)
+    {
+        $em= $this->getDoctrine()->getManager();
+
+        $session = $em->getRepository('annotationBundle:Session')->findOneById($id);
+
+        if (!$session) {
+            return new Response("bad id,session not deleted");
+        }else{
+
+            $em->remove($session);
+            $em->flush();
+
+            return new Response("session succesfully deleted ");
+
+        }
+
+    }
 
 }
